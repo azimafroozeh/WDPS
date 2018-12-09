@@ -99,7 +99,10 @@ def tokenizer(record):
     text_fornmated = text.lower()
     text_fornmated = text_fornmated.replace('\'s',' is').replace('n\'t', ' not').replace('\'re',' are').replace('\'m',' am').replace('\'ll', ' will')
 
-    tokens = nltk.word_tokenize(text_fornmated)
+    tbl = dict.fromkeys(i for i in range(sys.maxunicode) if unicodedata.category(chr(i)).startswith('P'))
+    text_no_pontuation = text_fornmated.translate(tbl)
+
+    tokens = nltk.word_tokenize(text_no_pontuation)
 
     tokens_no_stopword = [w for w in tokens if not w in stop_words] 
 
