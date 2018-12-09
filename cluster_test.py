@@ -90,9 +90,21 @@ def get_NLPsupport(record):
 def tokenizer(record):
     import nltk
     from nltk.tag import StanfordNERTagger
+    from nltk.corpus import stopwords 
+    from nltk.tokenize import word_tokenize 
+    import sys
+    import unicodedata
+
     nltk.data.path.append(os.environ.get('PWD'))
     key,text = record
-    tokens = nltk.word_tokenize(text)
+    stop_words = set(stopwords.words('english')) 
+
+    tbl = dict.fromkeys(i for i in range(sys.maxunicode) if unicodedata.category(chr(i)).startswith('P')) #Remove pontuactions from text
+    text_no_pontuation = text.translate(tbl)
+    
+    tokens = nltk.word_tokenize(text_no_pontuation)
+    tokens = [w for w in tokens if not w in stop_words] 
+
     for token in tokens:
         token.encode('utf-8')
     tagged = nltk.pos_tag(tokens)
