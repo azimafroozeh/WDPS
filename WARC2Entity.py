@@ -59,6 +59,7 @@ def tokenizer(record):
     import unicodedata
 
     nltk.data.path.append(os.environ.get('PWD'))
+    nltk.download('stopwords')
     key,text = record
     stop_words = set(stopwords.words('english'))
 
