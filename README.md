@@ -1,6 +1,7 @@
-# WDPS
+first run this:
 
-https://bitbucket.org/AzimAfroozeh/vuwebdata/
+export SPARK_DIST_CLASSPATH=$(hadoop classpath)
 
+then delete testazim1 if it's exist 
 
-# continue
+hadoop fs -rm -r testazim1
