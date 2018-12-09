@@ -11,6 +11,8 @@ echo "elasticsearch should be running now on node $ES_NODE:$ES_PORT (connected t
 SCRIPT=${1:-"WARC2Entity.py"}
 INFILE=${2:-"hdfs:///user/bbkruit/sample.warc.gz"}
 OUTFILE=${3:-"sample_partistioned"}
+LOCAL_RESULT=${4:-"local_result"}
+FINAL_RESULT=${5:-"result.tsv"}
 #read -p "wait"
 export SPARK_DIST_CLASSPATH=$(hadoop classpath)
 hdfs dfs -rm -r $OUTFILE
@@ -25,3 +27,7 @@ PYSPARK_PYTHON=$(readlink -f $(which python)) /home/bbkruit/spark-2.1.2-bin-with
 --files stanford-ner.jar#JARFILE \
 $SCRIPT $INFILE $OUTFILE $ES_NODE:$ES_PORT
 kill $ES_PID
+hdfs dfs -cat $OUTFILE"/*" > $LOCAL_RESULT
+python3 transformer.py $LOCAL_RESULT $FINAL_RESULT
+python3 score.py data/sample.annotations.tsv $FINAL_RESULT
+#kill $ES_PID
