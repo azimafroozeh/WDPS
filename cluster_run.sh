@@ -11,7 +11,7 @@ echo "elasticsearch should be running now on node $ES_NODE:$ES_PORT (connected t
 
 SCRIPT=${1:-"cluster_test.py"}
 INFILE=${2:-"hdfs:///user/bbkruit/sample.warc.gz"}
-OUTFILE=${3:-"testazim3"}
+OUTFILE=${3:-"testazim4"}
 
 hadoop fs -rm -r $OUTFILE
 # This assumes there is a python virtual environment in the "venv" directory

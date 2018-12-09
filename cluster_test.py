@@ -11,7 +11,9 @@ from selectolax.parser import HTMLParser
 from stanfordcorenlp import StanfordCoreNLP
 import requests
 import time
-
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.tag import pos_tag
 conf = SparkConf()
 conf.setAppName("AzimTest1")
 
@@ -292,21 +294,33 @@ def file2tuple(file):
     file_id,mention_list=file
     for mention in mention_list:
         yield (file_id,mention[0])
-
+def preprocess(sent):
+    print("sent===================================================================================================================================")
+    print(sent)
+    key, text = sent
+    text = nltk.word_tokenize(text)
+    print("tokenize====================================================================================================================================")
+    print(text)
+    test = nltk.pos_tag(text)
+    print("pos ====================================================================================================================================")
+    print(test)
+    print("====================================================================================================================================")
+    yield test
 
 #rdd0 = rdd.flatMap(find_google)
 #rdd0.saveAsTextFile(OUTFILE)
-#print("begin")
+print("begin")
 #sNLP = StanfordNLP(SHost,int(SPort))
 #print(sNLP)
 rdd1 = rddinput.flatMap(get_text)
 #print(rdd1.take(10))
-#print("====================================================================================================================================")
-temp = rdd1.collect()
-rdd2 = sc.parallelize(temp, 100).flatMap(rdd_html2text)
-#print(rdd2.take(10))
-#print("====================================================================================================================================")
+print("====================================================================================================================================")
+rdd2 = rdd1.flatMap(rdd_html2text)
+print(rdd2.take(10))
+print("====================================================================================================================================")
 #rdd3 = rdd2.flatMap(get_NLPsupport)
-rdd3 = rdd2.flatMap(tokenizer)
-rdd4 = rdd3.flatMap(file2tuple)
-result = rdd4.flatMap(search).saveAsTextFile(OUTFILE)
+preprocess_rdd = rdd2.flatMap(preprocess)
+preprocess_rdd.collect().saveAsTextFile(OUTFILE)
+#rdd3 = rdd2.flatMap(tokenizer)
+#rdd4 = rdd3.flatMap(file2tuple)
+#result = rdd4.flatMap(search).saveAsTextFile(OUTFILE)

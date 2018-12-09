@@ -1,0 +1,14 @@
+[2018-12-09 21:13:45,240][INFO ][node                     ] [node014] version[2.4.1], pid[17157], build[c67dc32/2016-09-27T18:57:55Z]
+[2018-12-09 21:13:45,241][INFO ][node                     ] [node014] initializing ...
+[2018-12-09 21:13:45,844][INFO ][plugins                  ] [node014] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2018-12-09 21:13:45,873][INFO ][env                      ] [node014] using [1] data paths, mounts [[/var/scratch (master.ib.cluster:/var/scratch)]], net usable_space [1.1tb], net total_space [14.1tb], spins? [possibly], types [nfs]
+[2018-12-09 21:13:45,873][INFO ][env                      ] [node014] heap size [989.8mb], compressed ordinary object pointers [true]
+[2018-12-09 21:13:47,611][INFO ][node                     ] [node014] initialized
+[2018-12-09 21:13:47,611][INFO ][node                     ] [node014] starting ...
+[2018-12-09 21:13:47,689][INFO ][transport                ] [node014] publish_address {10.141.0.14:9300}, bound_addresses {[::]:9300}
+[2018-12-09 21:13:47,694][INFO ][discovery                ] [node014] wdps1810/bzg3pB2USg6ScJWKwBvopA
+[2018-12-09 21:13:50,722][INFO ][cluster.service          ] [node014] new_master {node014}{bzg3pB2USg6ScJWKwBvopA}{10.141.0.14}{10.141.0.14:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2018-12-09 21:13:50,737][INFO ][http                     ] [node014] publish_address {10.141.0.14:9200}, bound_addresses {[::]:9200}
+[2018-12-09 21:13:50,737][INFO ][node                     ] [node014] started
+[2018-12-09 21:13:50,776][INFO ][gateway                  ] [node014] recovered [1] indices into cluster_state
+[2018-12-09 21:13:51,751][INFO ][cluster.routing.allocation] [node014] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[cw12][4]] ...]).
