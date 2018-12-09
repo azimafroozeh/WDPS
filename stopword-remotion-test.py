@@ -3,10 +3,14 @@ from nltk.tokenize import word_tokenize
 import sys
 import unicodedata
   
-text = "This is a sample sentence, showing off the stop words filtration."
+text = "THIS is a sample sentence, showing off the stop words filtration. \nHe's the child father. \nYOU  SHALL NOT PASS!!!!. "
+
+text_fornmated = text.lower()
+
+text_fornmated = text_fornmated.replace('\'s',' is').replace('n\'t', ' not').replace('\'re',' are').replace('\'m',' am').replace('\'ll', ' will')
 
 tbl = dict.fromkeys(i for i in range(sys.maxunicode) if unicodedata.category(chr(i)).startswith('P'))
-text_no_pontuation = text.translate(tbl)
+text_no_pontuation = text_fornmated.translate(tbl)
   
 #stop_words = set(stopwords.words('english')) 
 
@@ -16,7 +20,7 @@ word_tokens = word_tokenize(text_no_pontuation)
 
 # Remove default stop words
 filtered_sentence = [w for w in word_tokens if not w in stop_words] 
-print('TEXT: ', text)
+print('TEXT: ', text_fornmated)
 print('TEXT WITHOUT PONCTUATION ', text_no_pontuation)
 print()
 print('TOKENS: ',word_tokens) 

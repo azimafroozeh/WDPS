@@ -2,7 +2,7 @@ from glob import glob
 import sys
 import collections
 import os
-import sys
+import unicodedata
 from pyspark import SparkContext
 from pyspark import SparkConf
 from pyspark import SparkContext
@@ -87,23 +87,33 @@ def get_NLPsupport(record):
     yield (key,result)
     # if key and ('Google' in payload):
     #     yield key + '\t' + 'Google' + '\t' + '/m/045c7b'
+
 def tokenizer(record):
     import nltk
     from nltk.tag import StanfordNERTagger
+
     nltk.data.path.append(os.environ.get('PWD'))
     key,text = record
-    tokens = nltk.word_tokenize(text)
-    for token in tokens:
+    stop_words = {'its', 'against', 'what', 'so', 'll', "it's", 'where', "wasn't", 'about', 'didn', 'a', 'no', 'we', 'y', 'couldn', "haven't", 'is', 'them', 'be', 'should', 'mustn', "mightn't", 'between', "doesn't", 'her', 'who', 'why', 'd', 've', 'as', 'myself', "didn't", 'having', 'shan', "won't", 'until', 'and', 'itself', 'but', 'had', 'by', 'before', 'each', 'not', 'hadn', "shan't", 'above', 'yours', 'yourself', 'they', 'other', 'don', 'then', "you'd", 'down', 'your', 'such', 'weren', 'ours', 't', 'wouldn', 'does', 'needn', 'the', 'on', "isn't", 'our', 'after', 'most', 'themselves', 'through', 'again', 'there', 'both', 'in', 'shouldn', 'with', 'being', 'those', "you'll", 'ain', 'than', 'he', 'do', 'hasn', 'me', 'if', 'nor', 'aren', 'wasn', 'all', 'can', 'ma', 'you', "wouldn't", 're', 'because', "hasn't", "should've", 'my', 'will', 'from', 'under', 'own', 'to', 'him', 'did', 'here', 'same', 'when', 's', 'or', 'doing', 'o', "mustn't", 'she', "hadn't", 'few', "you're", 'these', "you've", 'while', 'am', 'i', 'too', "aren't", 'up', 'herself', 'now', 'that', 'are', 'very', 'at', 'only', 'm', 'out', "weren't", 'off', 'during', 'his', 'further', 'just', 'of', 'has', 'doesn', 'theirs', 'which', 'an', 'whom', 'more', 'isn', 'mightn', "couldn't", 'for', 'was', 'below', 'any', 'their', 'won', "needn't", 'yourselves', 'over', 'some', 'haven', 'been', 'once', 'into', 'how', 'this', 'himself', 'have', "don't", "shouldn't", 'hers', 'it', "that'll", 'ourselves', "she's", 'were'}
+
+    text_fornmated = text.lower()
+    text_fornmated = text_fornmated.replace('\'s',' is').replace('n\'t', ' not').replace('\'re',' are').replace('\'m',' am').replace('\'ll', ' will')
+
+    tokens = nltk.word_tokenize(text_fornmated)
+
+    tokens_no_stopword = [w for w in tokens if not w in stop_words] 
+
+    for token in tokens_no_stopword:
         token.encode('utf-8')
-    tagged = nltk.pos_tag(tokens)
+    tagged = nltk.pos_tag(tokens_no_stopword)
     #print(tagged)
-    #print(tokens)
+    #print(tokens_no_stopword)
     jar = './STANFORD/stanford-ner.jar'
     model = './STANFORD/english.all.3class.distsim.crf.ser.gz'
     st = StanfordNERTagger(model, jar, encoding='utf8')
     #print("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
     #print(st)
-    NERtags = st.tag(tokens)
+    NERtags = st.tag(tokens_no_stopword)
     #print(NERtags)
     yield(key,NERtags)
 
