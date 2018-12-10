@@ -326,9 +326,11 @@ def html_to_string(record):
         print(x)
         [(x.orth_,x.pos_, x.lemma_) for x in [y 
                                       for y
-                                      in nlp(str(sentences[20])) 
+                                      in nlp(str(x)) 
                                       if not y.is_stop and y.pos_ != 'PUNCT']]
-    yield(key, article)
+        z = dict([(str(x), x.label_) for x in nlp(str(x)).ents])
+        print(z)
+        yield(key, z)
 
 #rdd0 = rdd.flatMap(find_google)
 #rdd0.saveAsTextFile(OUTFILE)

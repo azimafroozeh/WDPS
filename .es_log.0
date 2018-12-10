@@ -1,18 +1,13 @@
-[2018-12-10 01:35:07,442][INFO ][node                     ] [node023] version[2.4.1], pid[3106], build[c67dc32/2016-09-27T18:57:55Z]
-[2018-12-10 01:35:07,442][INFO ][node                     ] [node023] initializing ...
-[2018-12-10 01:35:08,042][INFO ][plugins                  ] [node023] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
-[2018-12-10 01:35:08,358][INFO ][env                      ] [node023] using [1] data paths, mounts [[/var/scratch (master.ib.cluster:/var/scratch)]], net usable_space [1.1tb], net total_space [14.1tb], spins? [possibly], types [nfs]
-[2018-12-10 01:35:08,358][INFO ][env                      ] [node023] heap size [989.8mb], compressed ordinary object pointers [true]
-[2018-12-10 01:35:10,152][INFO ][node                     ] [node023] initialized
-[2018-12-10 01:35:10,152][INFO ][node                     ] [node023] starting ...
-[2018-12-10 01:35:10,232][INFO ][transport                ] [node023] publish_address {10.141.0.23:9300}, bound_addresses {[::]:9300}
-[2018-12-10 01:35:10,237][INFO ][discovery                ] [node023] wdps1810/_cEzvtRxQhmn3F5MWRKNwQ
-[2018-12-10 01:35:13,267][INFO ][cluster.service          ] [node023] new_master {node023}{_cEzvtRxQhmn3F5MWRKNwQ}{10.141.0.23}{10.141.0.23:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
-[2018-12-10 01:35:13,284][INFO ][http                     ] [node023] publish_address {10.141.0.23:9200}, bound_addresses {[::]:9200}
-[2018-12-10 01:35:13,284][INFO ][node                     ] [node023] started
-[2018-12-10 01:35:13,321][INFO ][gateway                  ] [node023] recovered [1] indices into cluster_state
-[2018-12-10 01:35:13,901][INFO ][cluster.routing.allocation] [node023] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[cw12][4]] ...]).
-[2018-12-10 01:50:05,523][INFO ][node                     ] [node023] stopping ...
-[2018-12-10 01:50:06,374][INFO ][node                     ] [node023] stopped
-[2018-12-10 01:50:06,374][INFO ][node                     ] [node023] closing ...
-[2018-12-10 01:50:06,379][INFO ][node                     ] [node023] closed
+[2018-12-10 16:10:28,198][INFO ][node                     ] [node023] version[2.4.1], pid[28640], build[c67dc32/2016-09-27T18:57:55Z]
+[2018-12-10 16:10:28,198][INFO ][node                     ] [node023] initializing ...
+[2018-12-10 16:10:28,770][INFO ][plugins                  ] [node023] modules [reindex, lang-expression, lang-groovy], plugins [], sites []
+[2018-12-10 16:10:31,289][INFO ][env                      ] [node023] using [1] data paths, mounts [[/var/scratch (master.ib.cluster:/var/scratch)]], net usable_space [1.1tb], net total_space [14.1tb], spins? [possibly], types [nfs]
+[2018-12-10 16:10:31,289][INFO ][env                      ] [node023] heap size [989.8mb], compressed ordinary object pointers [true]
+[2018-12-10 16:10:32,980][INFO ][node                     ] [node023] initialized
+[2018-12-10 16:10:32,980][INFO ][node                     ] [node023] starting ...
+[2018-12-10 16:10:33,051][INFO ][transport                ] [node023] publish_address {10.141.0.23:9300}, bound_addresses {[::]:9300}
+[2018-12-10 16:10:33,056][INFO ][discovery                ] [node023] wdps1810/rDszzF9vQiez9H1g1A--TQ
+[2018-12-10 16:10:36,088][INFO ][cluster.service          ] [node023] new_master {node023}{rDszzF9vQiez9H1g1A--TQ}{10.141.0.23}{10.141.0.23:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+[2018-12-10 16:10:36,109][INFO ][http                     ] [node023] publish_address {10.141.0.23:9200}, bound_addresses {[::]:9200}
+[2018-12-10 16:10:36,109][INFO ][node                     ] [node023] started
+[2018-12-10 16:10:36,127][INFO ][gateway                  ] [node023] recovered [0] indices into cluster_state
