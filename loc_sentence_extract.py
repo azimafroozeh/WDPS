@@ -330,7 +330,10 @@ def html_to_string(record):
                                       if not y.is_stop and y.pos_ != 'PUNCT']]
         z = dict([(str(x), x.label_) for x in nlp(str(x)).ents])
         print(z)
-        yield(key, z)
+        for k,v in z.items():
+            print(k)
+            print(v)
+            yield(key, k)
 
 #rdd0 = rdd.flatMap(find_google)
 #rdd0.saveAsTextFile(OUTFILE)
