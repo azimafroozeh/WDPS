@@ -11,7 +11,7 @@ from selectolax.parser import HTMLParser
 from stanfordcorenlp import StanfordCoreNLP
 import requests
 import time
-
+import re
 conf = SparkConf()
 conf.setAppName("AzimTest1")
 
@@ -294,6 +294,44 @@ def file2tuple(file):
     for mention in mention_list:
         yield (file_id,mention[0])
 
+def html_to_string(record):
+    a = sys.path
+    b = '/cm/shared/package/python/3.5.2'
+    c = '/cm/shared/package/python/3.5.2/lib/python3.5/site-packages'
+    if b in a:
+        sys.path.remove('/cm/shared/package/python/3.5.2')
+    if c in a:
+        sys.path.remove('/cm/shared/package/python/3.5.2/lib/python3.5/site-packages')
+    import spacy
+    from spacy import displacy
+    from collections import Counter
+    import en_core_web_sm
+    nlp = en_core_web_sm.load()
+    #print(len(nlp.vocab))
+    key, text = record
+    html = text
+    #print(html)
+    soup = BeautifulSoup(html, 'html5lib')
+    for script in soup(['head', 'title', 'meta', '[document]',"script", "style", 'aside']):
+        script.extract()
+    #print(" ".join(re.split(r'[\n\t]+', soup.get_text())))
+    #print("===================================")
+    article = nlp(" ".join(re.split(r'[\n\t]+', soup.get_text())))
+    #print(article) 
+    #print("articcccccccccccccccccccccccccle")
+    for x in article.sents:
+        # print(type(x))
+        #print(x)
+        [(x.orth_,x.pos_, x.lemma_) for x in [y 
+                                      for y
+                                      in nlp(str(x)) 
+                                      if not y.is_stop and y.pos_ != 'PUNCT']]
+        z = dict([(str(x), x.label_) for x in nlp(str(x)).ents])
+        #print(z)
+        for k,v in z.items():
+            #print(k)
+            #print(v)
+            yield(key, k)
 
 #rdd0 = rdd.flatMap(find_google)
 #rdd0.saveAsTextFile(OUTFILE)
@@ -304,10 +342,10 @@ rdd1 = rddinput.flatMap(get_text)
 #print(rdd1.take(10))
 #print("====================================================================================================================================")
 temp = rdd1.collect()
-rdd2 = sc.parallelize(temp, 100).flatMap(rdd_html2text)
+rdd2 = sc.parallelize(temp, 100).flatMap(html_to_string)
 #print(rdd2.take(10))
 #print("====================================================================================================================================")
 #rdd3 = rdd2.flatMap(get_NLPsupport)
-rdd3 = rdd2.flatMap(tokenizer)
-rdd4 = rdd3.flatMap(file2tuple)
+#rdd3 = rdd2.flatMap(tokenizer)
+rdd4 = rdd2.flatMap(file2tuple)
 result = rdd4.flatMap(search).saveAsTextFile(OUTFILE)
