@@ -53,42 +53,22 @@ def get_text(record):
 def tokenizer(record):
     import nltk
     from nltk.tag import StanfordNERTagger
-    from nltk.corpus import stopwords
-    from nltk.tokenize import word_tokenize
-    import sys
-    import unicodedata
-    #
     nltk.data.path.append(os.environ.get('PWD'))
-    # #nltk.download('stopwords')
     key,text = record
-    # stop_words = set(stopwords.words('english'))
-    #
-    # tbl = dict.fromkeys(i for i in range(sys.maxunicode) if unicodedata.category(chr(i)).startswith('P')) #Remove pontuactions from text
-    # text_no_pontuation = text.translate(tbl)
-    #
-    #tokens = nltk.word_tokenize(text_no_pontuation)
-    # tokens = [w for w in tokens if not w in stop_words]
-    #
+    #tokens = nltk.word_tokenize(text)
     #for token in tokens:
     #    token.encode('utf-8')
-    # #tokens=[token.encode('utf-8') for token in tokens if token not in stopwords.words('english')]
     #tagged = nltk.pos_tag(tokens)
-    # #print(tagged)
-    # #print(tokens)
+    #print(tagged)
+    #print(tokens)
     #jar = './STANFORD/stanford-ner.jar'
     #model = './STANFORD/english.all.3class.distsim.crf.ser.gz'
     #st = StanfordNERTagger(model, jar, encoding='utf8')
-    # #print("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
-    # #print(st)
+    #print("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+    #print(st)
     #NERtags = st.tag(tokens)
-    # #print(NERtags)
-    # #for word in NERtags:
-    #import spacy
-    #from spacy import displacy
-    #from collections import Counter
-    #import en_core_web_sm
-    #nlp = en_core_web_sm.load()
-    #nlp=spacy.load('en_core_web_sm')
+    #print(NERtags)
+    #yield(key,NERtags)
     a = sys.path
     b = '/cm/shared/package/python/3.5.2'
     c = '/cm/shared/package/python/3.5.2/lib/python3.5/site-packages'
@@ -103,8 +83,7 @@ def tokenizer(record):
     nlp = en_core_web_sm.load()
     #print(len(nlp.vocab))
     doc = nlp(text)
-    if len(doc.ents):
-        yield(key,doc.ents)
+    yield(key,doc.ents)
 def simpleRule_dis(response):
     # response = response.json()
     result_list=[]
