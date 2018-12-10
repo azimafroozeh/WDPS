@@ -52,23 +52,9 @@ def get_text(record):
         yield (key,'\r\n\r\n'.join(payload.split('\r\n\r\n')[2:]))
 def tokenizer(record):
     import nltk
-    from nltk.tag import StanfordNERTagger
     nltk.data.path.append(os.environ.get('PWD'))
     key,text = record
-    #tokens = nltk.word_tokenize(text)
-    #for token in tokens:
-    #    token.encode('utf-8')
-    #tagged = nltk.pos_tag(tokens)
-    #print(tagged)
-    #print(tokens)
-    #jar = './STANFORD/stanford-ner.jar'
-    #model = './STANFORD/english.all.3class.distsim.crf.ser.gz'
-    #st = StanfordNERTagger(model, jar, encoding='utf8')
-    #print("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
-    #print(st)
-    #NERtags = st.tag(tokens)
-    #print(NERtags)
-    #yield(key,NERtags)
+
     a = sys.path
     b = '/cm/shared/package/python/3.5.2'
     c = '/cm/shared/package/python/3.5.2/lib/python3.5/site-packages'
@@ -101,7 +87,7 @@ def simpleRule_dis(response):
 def search(domain, query):
     url = 'http://%s/freebase/label/_search' % domain
     #print(domain)
-    s=requests.Session()
+    #s=requests.Session()
     #s.mount('http://', HTTPAdapter(max_retries=3))
     #s.mount('https://', HTTPAdapter(max_retries=3))
     i=5
