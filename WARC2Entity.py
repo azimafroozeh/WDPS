@@ -3,6 +3,7 @@ import sys
 import collections
 import os
 import sys
+from bs4 import BeautifulSoup
 from pyspark import SparkContext
 from pyspark import SparkConf
 from pyspark import SparkContext
@@ -11,7 +12,6 @@ import requests
 import time
 from nltk.corpus import stopwords
 KEYNAME = "WARC-TREC-ID"
-
 def get_text_selectolax(html):
     tree = HTMLParser(html)
     if tree.body is None:
@@ -55,20 +55,6 @@ def tokenizer(record):
     from nltk.tag import StanfordNERTagger
     nltk.data.path.append(os.environ.get('PWD'))
     key,text = record
-    #tokens = nltk.word_tokenize(text)
-    #for token in tokens:
-    #    token.encode('utf-8')
-    #tagged = nltk.pos_tag(tokens)
-    #print(tagged)
-    #print(tokens)
-    #jar = './STANFORD/stanford-ner.jar'
-    #model = './STANFORD/english.all.3class.distsim.crf.ser.gz'
-    #st = StanfordNERTagger(model, jar, encoding='utf8')
-    #print("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
-    #print(st)
-    #NERtags = st.tag(tokens)
-    #print(NERtags)
-    #yield(key,NERtags)
     a = sys.path
     b = '/cm/shared/package/python/3.5.2'
     c = '/cm/shared/package/python/3.5.2/lib/python3.5/site-packages'
@@ -82,8 +68,14 @@ def tokenizer(record):
     import en_core_web_sm
     nlp = en_core_web_sm.load()
     #print(len(nlp.vocab))
-    doc = nlp(text)
-    yield(key,doc.ents)
+    import re
+    p = re.compile(r"(\n)(\1+)")
+    p2=re.compile(r"( )(\1+)")
+    #text=text.replace('\t','')
+    test=p2.sub(r'\1',text)
+    test=p.sub(r"\1",test).replace('\n',' ')
+    doc = nlp(test)
+    yield(key,[(p2.sub(r'\1',X.text).replace('\t',''), X.label_) for X in doc.ents])
 def simpleRule_dis(response):
     # response = response.json()
     result_list=[]
@@ -141,8 +133,43 @@ def search(domain, query):
 def file2tuple(file):
     file_id,mention_list=file
     for mention in mention_list:
-        yield (file_id,mention[0])
-
+        yield (file_id,mention.text)
+def html_to_string(record):
+    a = sys.path
+    b = '/cm/shared/package/python/3.5.2'
+    c = '/cm/shared/package/python/3.5.2/lib/python3.5/site-packages'
+    if b in a:
+        sys.path.remove('/cm/shared/package/python/3.5.2')
+    if c in a:
+        sys.path.remove('/cm/shared/package/python/3.5.2/lib/python3.5/site-packages')
+    import spacy
+    from spacy import displacy
+    from collections import Counter
+    import en_core_web_sm
+    nlp = en_core_web_sm.load()
+    print(len(nlp.vocab))
+    key, text = record
+    html = text
+    #print(html)
+    soup = BeautifulSoup(html, 'html5lib')
+    for script in soup(['head', 'title', 'meta', '[document]',"script", "style", 'aside']):
+        script.extract()
+    print(" ".join(re.split(r'[\n\t]+', soup.get_text())))
+    print("===================================")
+    article = nlp(" ".join(re.split(r'[\n\t]+', soup.get_text())))
+    print(article)
+    print("articcccccccccccccccccccccccccle")
+    for x in article.sents:
+        print(type(x))
+        print(x)
+        [(x.orth_,x.pos_, x.lemma_) for x in [y
+                                      for y
+                                      in nlp(str(x))
+                                      if not y.is_stop and y.pos_ != 'PUNCT']]
+        z = dict([(str(i), i.label_) for i in nlp(str(x)).ents])
+        #z = dict([(str(x), x.label_) for x in nlp(str(x)).ents])
+        #z=[(k,v) for k,v in z.items()]
+        yield(key, str(z))
 if __name__ == '__main__':
     import sys
 
@@ -166,12 +193,15 @@ if __name__ == '__main__':
                               "org.apache.hadoop.io.LongWritable",
                               "org.apache.hadoop.io.Text",
                               conf={"textinputformat.record.delimiter": "WARC/1.0"})
-    html_rdd = rdd.flatMap(get_text)
-    text_rdd=html_rdd.flatMap(rdd_html2text)
+    html_rdd=rdd.flatMap(get_text)
+    html_rdd=html_rdd.collect()
+    text_rdd=sc.parallelize(html_rdd,200).flatMap(rdd_html2text)
     #text_rdd=text_rdd.collect()
-    token_rdd=sc.parallelize(text_rdd, 100).flatMap(tokenizer)
+    #token_rdd=sc.parallelize(text_rdd, 200).flatMap(tokenizer)
     #token_rdd.take(1)
-    token_rdd = text_rdd.flatMap(tokenizer)
+    
+    #token_rdd=text_rdd.flatMap(tokenizer)
+    token_rdd=text_rdd.flatMap(html_to_string)
     token_rdd.saveAsTextFile(OUTPUT)
     #tuple_rdd = rdd.flatMap(lambda x: [eval(x)])
     #ftuple = token_rdd.flatMap(lambda x: file2tuple(x))

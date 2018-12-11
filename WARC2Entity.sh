@@ -8,7 +8,7 @@ until [ -n "$ES_NODE" ]; do ES_NODE=$(cat .es_node | grep '^:' | grep -oP '(node
 ES_PID=$!
 #sleep 15
 echo "elasticsearch should be running now on node $ES_NODE:$ES_PORT (connected to process $ES_PID)"
-SCRIPT=${1:-"WARC2Entity.py"}
+SCRIPT=${1:-"cluster_test.py"}
 INFILE=${2:-"hdfs:///user/bbkruit/sample.warc.gz"}
 OUTFILE=${3:-"sample_partistioned"}
 LOCAL_RESULT=${4:-"local_result"}
