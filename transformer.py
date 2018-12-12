@@ -2,6 +2,7 @@ def filter(line):
     tag=eval(line[2])
     #tag=eval(tag)
     if tag:
+        #if line[1] in tag[0]:
         return line[0]+'\t'+line[1]+'\t'+tag[1]
 if __name__ == '__main__':
     import sys

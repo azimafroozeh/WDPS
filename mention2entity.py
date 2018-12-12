@@ -59,6 +59,7 @@ def file2tuple(file):
     for mention in mention_list:
         yield (file_id,mention[0])
 def filter(mention):
+    
     if len(mention[1].split(' '))>4:
         return 0
     if mention[2] == 'PERSON' or mention[2] == 'ORG':
