@@ -1,4 +1,4 @@
-from glob import glob
+wfrom glob import glob
 import sys
 import collections
 import os
