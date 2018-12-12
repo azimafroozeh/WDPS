@@ -10,6 +10,8 @@ sleep 15
 echo "elasticsearch should be running now on node $ES_NODE:$ES_PORT (connected to process $ES_PID)"
 INFILE=${2:-"result"}
 OUTFILE=${3:-"finlal"}
+FINAL_RESULT=${5:-"result.tsv"}
 python3 mention2entity.py $INFILE $OUTFILE $ES_NODE:$ES_PORT
-
+python3 transformer.py $OUTFILE $FINAL_RESULT
+python3 score.py data/sample.annotations.tsv $FINAL_RESULT
 kill $ES_PID

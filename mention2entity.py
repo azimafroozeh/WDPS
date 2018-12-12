@@ -3,16 +3,57 @@ from requests.adapters import HTTPAdapter
 import time
 def simpleRule_dis(response):
     # response = response.json()
-    hits = response['hits']['hits']
-    return sorted([(i['_source']['label'],i['_source']['resource'],i["_score"]) for i in hits],key=lambda e:e[2],reverse=True).pop(0)
+    result_list=[]
+    for hit in response['hits']['hits']:
+        freebase_label = hit['_source']['label']
+        freebase_id = hit['_source']['resource']
+        score=hit.get('_score')
+        result_list.append(( freebase_label,freebase_id,score))
+    #hits = response['hits']['hits']
+    #return sorted([(i['_source']['label'],i['_source']['resource'],i["_score"]) for i in hits],key=lambda e:e[2],reverse=True).pop(0)
+    if len(result_list):
+        return result_list.pop(0)
+    else:
+        return []
 def search(domain, query):
     url = 'http://%s/freebase/label/_search' % domain
-    response = requests.get(url, params={'q': query[1], 'size':100})
+    #print(domain)
+    #s=requests.Session()
+    #s.mount('http://', HTTPAdapter(max_retries=3))
+    #s.mount('https://', HTTPAdapter(max_retries=3))
+    i=5
+    #try:
+    while(i):
+        try:
+            response = requests.get(url, params={'q': query[1], 'size':100})
+            break
+        except:
+            time.sleep(0.1)
+            i-=1
+            response=None
+            continue
+    #except:
+        #id_labels=query
+    # id_labels = {}
+    # #print(response)
+    #    time.sleep(0.1)
+    #    try:
+    #        response = requests.get(url, params={'q': query, 'size':100})
+    #    except:
+    #        return query
+    id_labels=None
     if response:
+        #try:
         response = response.json()
+        #except:
+            #yield query[1]
         #print(response)
-        id_labels=simpleRule_dis(response)
-    return (query[0],id_labels[0],id_labels[1],id_labels[2])
+        try:
+            id_labels=simpleRule_dis(response)
+            pass
+        except:
+            return (query[0],response)
+    return (query[0],query[1],str(id_labels))
 def file2tuple(file):
     file_id,mention_list=file
     for mention in mention_list:
@@ -31,4 +72,5 @@ if __name__ == '__main__':
         with open(OUTPUT,'w') as fo:
             for item in f.readlines():
                 mention=eval(item)
-                fo.writelines(str(search(EHost,mention)))
+                if mention[2]=='PERSON': 
+                    fo.writelines(str(search(EHost,mention))+'\n')

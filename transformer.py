@@ -1,5 +1,6 @@
 def filter(line):
     tag=eval(line[2])
+    #tag=eval(tag)
     if tag:
         return line[0]+'\t'+line[1]+'\t'+tag[1]
 if __name__ == '__main__':
