@@ -1,4 +1,4 @@
-wfrom glob import glob
+from glob import glob
 import sys
 import collections
 import os
@@ -341,7 +341,7 @@ def html_to_string(record):
 rdd1 = rddinput.flatMap(get_text)
 #print(rdd1.take(10))
 #print("====================================================================================================================================")
-temp = rdd1
+temp = rdd1.take(92)
 rdd2 = sc.parallelize(temp, 100).flatMap(html_to_string)
 #print(rdd2.take(10))
 #print("====================================================================================================================================")

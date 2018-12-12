@@ -14,7 +14,10 @@ print('gold: %s' % n_gold)
 # Load the predictions
 pred = {}
 for line in open(pred_file):
-    record, string, entity = line.strip().split('\t', 2)
+    try:
+        record, string, entity = line.strip().split('\t', 2)
+    except:
+        print(line)
     pred[(record, string)] = entity
 n_predicted = len(pred)
 print('predicted: %s' % n_predicted)

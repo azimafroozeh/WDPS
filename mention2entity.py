@@ -72,5 +72,8 @@ if __name__ == '__main__':
         with open(OUTPUT,'w') as fo:
             for item in f.readlines():
                 mention=eval(item)
-                if mention[2]=='PERSON': 
+                #print(mention)
+                if mention[2]=='PERSON' or mention[2]=='ORG':
+                    if '  ' in mention[1]:
+                        continue 
                     fo.writelines(str(search(EHost,mention))+'\n')
