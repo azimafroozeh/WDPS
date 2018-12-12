@@ -58,6 +58,13 @@ def file2tuple(file):
     file_id,mention_list=file
     for mention in mention_list:
         yield (file_id,mention[0])
+def filter(mention):
+    if len(mention[1].split(' '))>4:
+        return 0
+    if mention[2] == 'PERSON' or mention[2] == 'ORG':
+        if '  ' in mention[1]:
+            return 0
+        return 1
 if __name__ == '__main__':
     import sys
 
@@ -73,7 +80,5 @@ if __name__ == '__main__':
             for item in f.readlines():
                 mention=eval(item)
                 #print(mention)
-                if mention[2]=='PERSON' or mention[2]=='ORG':
-                    if '  ' in mention[1]:
-                        continue 
+                if filter(mention):
                     fo.writelines(str(search(EHost,mention))+'\n')

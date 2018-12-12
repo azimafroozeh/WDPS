@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
-import en_core_web_sm
-nlp = en_core_web_sm.load()
+import en_core_web_lg
+nlp = en_core_web_lg.load()
 import re
 import warc
 def split_records(stream):
