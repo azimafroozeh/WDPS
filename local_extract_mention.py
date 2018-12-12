@@ -66,7 +66,7 @@ if __name__ == '__main__':
             tuple_k=html_to_string(record)
             print(record.header._d["warc-trec-id"])
             for i in tuple_k:
-                f_out.writelines(str((record.header._d["warc-trec-id"],i))+'\n')
+                f_out.writelines(str((record.header._d["warc-trec-id"],i[0],i[1]))+'\n')
 
     f.close()
     f_out.close()
