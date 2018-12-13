@@ -1,13 +1,15 @@
 import requests
 from requests.adapters import HTTPAdapter
 import time
-def simpleRule_dis(response):
+def simpleRule_dis(key,response):
     # response = response.json()
     result_list=[]
     for hit in response['hits']['hits']:
         freebase_label = hit['_source']['label']
         freebase_id = hit['_source']['resource']
         score=hit.get('_score')
+        if key.lower() in freebase_label.lower():
+            return (( freebase_label,freebase_id,score))
         result_list.append(( freebase_label,freebase_id,score))
     #hits = response['hits']['hits']
     #return sorted([(i['_source']['label'],i['_source']['resource'],i["_score"]) for i in hits],key=lambda e:e[2],reverse=True).pop(0)
@@ -48,11 +50,9 @@ def search(domain, query):
         #except:
             #yield query[1]
         #print(response)
-        try:
-            id_labels=simpleRule_dis(response)
-            pass
-        except:
-            return (query[0],response)
+        
+        id_labels=simpleRule_dis(query[1],response)
+        
     return (query[0],query[1],str(id_labels))
 def file2tuple(file):
     file_id,mention_list=file
@@ -62,7 +62,7 @@ def filter(mention):
     
     if len(mention[1].split(' '))>4:
         return 0
-    if mention[2] == 'PERSON' or mention[2] == 'ORG':
+    if mention[2] == 'PERSON' or mention[2] == 'ORG' or mention[2] =='GPE':
         if '  ' in mention[1]:
             return 0
         return 1

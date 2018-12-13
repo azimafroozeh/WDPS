@@ -235,13 +235,15 @@ def simpleRule(ann,pos,ner):
         result.append((special,special_type))
     return result
 
-def simpleRule_dis(response):
+def simpleRule_dis(key,response):
     # response = response.json()
     result_list=[]
     for hit in response['hits']['hits']:
         freebase_label = hit['_source']['label']
         freebase_id = hit['_source']['resource']
         score=hit.get('_score')
+        if key==freebase_label:
+            return ( freebase_label,freebase_id,score)
         result_list.append(( freebase_label,freebase_id,score))
     #hits = response['hits']['hits']
     #return sorted([(i['_source']['label'],i['_source']['resource'],i["_score"]) for i in hits],key=lambda e:e[2],reverse=True).pop(0)
@@ -312,7 +314,7 @@ def html_to_string(record):
     html = text
     #print(html)
     soup = BeautifulSoup(html, 'html5lib')
-    for script in soup(['head', 'title', 'meta', '[document]',"script", "style", 'aside']):
+    for script in soup(['head', 'title', '[document]',"script", "style", 'aside']):
         script.extract()
     #print(" ".join(re.split(r'[\n\t]+', soup.get_text())))
     #print("===================================")
@@ -327,6 +329,9 @@ def html_to_string(record):
                                       in nlp(str(x)) 
                                       if not y.is_stop and y.pos_ != 'PUNCT']]
         z = dict([(str(x), x.label_) for x in nlp(str(x)).ents])
+        #for word in nlp(str(x)):
+        #    if word.is_upper and len(word)<5:
+        #        yield (key,str(word),'ORG')
         #print(z)
         for k,v in z.items():
             #print(k)

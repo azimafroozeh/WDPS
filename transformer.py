@@ -1,9 +1,11 @@
+import re
 def filter(line):
     tag=eval(line[2])
     #tag=eval(tag)
     if tag:
-        #if line[1] in tag[0]:
-        return line[0]+'\t'+line[1]+'\t'+tag[1]
+        if not line[1].startswith(' ') and not 'EX' in line[1] and not line[1][0].isdigit():
+            if line[1].lower() in tag[0].lower():
+                return line[0]+'\t'+line[1]+'\t'+tag[1]
 if __name__ == '__main__':
     import sys
 
