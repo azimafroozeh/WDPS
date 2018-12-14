@@ -4,11 +4,12 @@ https://bitbucket.org/AzimAfroozeh/vuwebdata/
 
 
 # Usage
-##Step1:run cluster_run.sh
+Working space:/home/wdps1810/YouHu/github/WDPS
+## Step1:run cluster_run.sh
 - Input: default-"hdfs:///user/bbkruit/sample.warc.gz"
 - Output: "result" (WARC-File-ID,Label, Freebase-ID)
 - Configuration: 8 executors; 2G/Ex; Cluster mode; Virtual Environment
-##Step2:run Query&Evaluate.sh
+## Step2:run Query&Evaluate.sh
 - Query input: "result" (Produced by cluster_run.sh)
 - Query output: "result.tsv" (Processed by transformer.py)
 - Annnotaion File: default-"data/sample.annotations.tsv"
