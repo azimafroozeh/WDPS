@@ -19,8 +19,8 @@ Run:
 
 Output:
 
-- File: `result`
-- Format: `<WARC-File-ID,Label,NER Tag>`
+- File: `result.tsv`
+- Format: `<WARC-File-ID,Label,Fresbase ID>`
 
 Configuration:
 
