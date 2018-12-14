@@ -6,7 +6,7 @@ You can find the old project in the archieved Bitbucket [repository](https://bit
 
 ## Application Usage
 
-Working space: `/home/wdps1810/YouHu/github/WDPS`
+Working space: `/home/wdps1810/wdps-test`
 
 ### Step1: Knowledge Extraction
 
