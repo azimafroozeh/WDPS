@@ -14,8 +14,8 @@ Task: This performs (1) NLP preprocessing and (2) information extraction. This w
 
 Run:
 
-- File: `cluster_run.sh`
-- Parameters `INFILE default-"hdfs:///user/bbkruit/sample.warc.gz"` If you want to apply our program to other datasets, please edit this part
+- File: `run.sh cluster.py "hdfs:///user/bbkruit/sample.warc.gz"`
+- Change third argument to your HDFS file
 
 Output:
 
