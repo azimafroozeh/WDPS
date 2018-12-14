@@ -14,7 +14,7 @@ Task: This performs (1) NLP preprocessing and (2) information extraction. This w
 
 Run:
 
-- File: `run.sh cluster.py "hdfs:///user/bbkruit/sample.warc.gz"`
+- Run: `run.sh cluster.py "hdfs:///user/bbkruit/sample.warc.gz"`
 - Change third argument to your HDFS file
 
 Output:
