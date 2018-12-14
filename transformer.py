@@ -1,10 +1,21 @@
 import re
+import string
+def isEnglish(s):
+    try:
+        s.encode(encoding='utf-8').decode('ascii')
+    except UnicodeDecodeError:
+        return False
+    else:
+        return True
 def filter(line):
     tag=eval(line[2])
     #tag=eval(tag)
     if tag:
-        if not line[1].startswith(' ') and not 'EX' in line[1] and not line[1][0].isdigit():
-            if line[1].lower() in tag[0].lower():
+        for p in string.punctuation:
+            if p in line[1]:
+                return None
+        if not line[1].startswith(' ') and not line[1][0].isdigit():
+            if line[1].lower() in tag[0].lower() and isEnglish(line[1]):
                 return line[0]+'\t'+line[1]+'\t'+tag[1]
 if __name__ == '__main__':
     import sys

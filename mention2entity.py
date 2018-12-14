@@ -8,7 +8,7 @@ def simpleRule_dis(key,response):
         freebase_label = hit['_source']['label']
         freebase_id = hit['_source']['resource']
         score=hit.get('_score')
-        if key.lower() in freebase_label.lower():
+        if key.lower() == freebase_label.lower():
             return (( freebase_label,freebase_id,score))
         result_list.append(( freebase_label,freebase_id,score))
     #hits = response['hits']['hits']
