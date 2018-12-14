@@ -68,5 +68,16 @@ Annotation File: `default-"data/sample.annotations.tsv"` for a testing score of 
 - Ranking rule:
   - Top score given by elasticsearch
   
-  ## Scalability 
+## Scalability 
   - First part of our solution is completely scalabe, and the WARC file splits to 100 containers.
+  
+  
+## Assignment: 2nd part
+### Perform relation extraction
+- Spacy model : 'en_core_web_sm'
+- Working on our laptop, needs to be tested on cluster 
+`doc = nlp(text)
+        relations = extract_currency_relations(doc)
+        for r1, r2 in relations:
+            print('{:<10}\t{}\t{}'.format(r1.text, r2.ent_type_, r2.text))`
+
