@@ -10,7 +10,7 @@ Working space: `/home/wdps1810/wdps-test`
 
 ### Step1: Knowledge Extraction
 
-Task: This will perform (1) NPL preprocessing and (2) information extraction. This will return a set of entities present in the sample file,with its respective Named Entity Recognition (NER) tag.
+Task: This will perform (1) NLP preprocessing and (2) information extraction. This will return a set of entities present in the sample file,with its respective Named Entity Recognition (NER) tag.
 
 Run:
 
