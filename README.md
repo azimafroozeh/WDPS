@@ -43,7 +43,7 @@ Output:
 - File: "result.tsv"
 - Format: `<WARC-File-ID,Label,Freebase-ID>`
 
-Annnotaion File: `default-"data/sample.annotations.tsv"`
+Annnotaion File: `default-"data/sample.annotations.tsv"` for testing score of other datasets, you can change the annotayion file
 
 ## Techniques
 
