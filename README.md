@@ -2,7 +2,7 @@
 
 This repository contains the Lab Assignment of the 2018-2019 edition of the  Vrije Universiteit Amsterdam, Computer Science Master Degree, Web Data Processing System course.
 
-You can find the old project in the archieved Bitbucket [repository](https://bitbucket.org/AzimAfroozeh/vuwebdata/). Due the elevated storage space required by the enironment and configuration files, we decided to create a new repository with a simplied and smaller version of the project.
+You can find the old project in the archived Bitbucket [repository](https://bitbucket.org/AzimAfroozeh/vuwebdata/). Due to the high storage space required by the environment and configuration files, we decided to create a new repository with a simplified and smaller version of the project.
 
 ## Application Usage
 
@@ -10,17 +10,17 @@ Working space: `/home/wdps1810/wdps-test`
 
 ### Step1: Knowledge Extraction
 
-Task: This will perform (1) NPL preprocessing and (2) information extraction. This will return a set of entities present in the sample file,with its respective Named Entity Recognition (NER) tag.
+Task: This performs (1) NLP preprocessing and (2) information extraction. This will return a set of entities present in the sample file, with its respective Named Entity Recognition (NER) tag.
 
 Run:
 
-- File: `cluster_run.sh`
-- Parameters `INFILE default-"hdfs:///user/bbkruit/sample.warc.gz"` If you want to apply our program to other datasets, please edit this part
+- Run: `run.sh cluster.py "hdfs:///user/bbkruit/sample.warc.gz"`
+- Change third argument to your HDFS file
 
 Output:
 
-- File: `result`
-- Format: `<WARC-File-ID,Label,NER Tag>`
+- File: `result.tsv`
+- Format: `<WARC-File-ID,Label,Fresbase ID>`
 
 Configuration:
 
@@ -31,7 +31,7 @@ Configuration:
 
 ### Step2: Result Evaluation
 
-Task: This will take the results produced in the previous step and perform entity linking in the knowledge base. The returned result is a set of rows with the linking of the entry samples in the knowledge base. Note that the result is processed in `transformer.py`.
+Task: This takes the results produced in the previous step and performs entity linking in the knowledge base. The returned result is a set of rows with the linking of the entry samples in the knowledge base. Note that the result is processed in `transformer.py`.
 
 Run:
 
@@ -43,7 +43,7 @@ Output:
 - File: "result.tsv"
 - Format: `<WARC-File-ID,Label,Freebase-ID>`
 
-Annnotaion File: `default-"data/sample.annotations.tsv"` for testing score of other datasets, you can change the annotayion file
+Annotation File: `default-"data/sample.annotations.tsv"` for a testing score of other datasets, you can change the annotation file
 
 ## Techniques
 
@@ -67,3 +67,6 @@ Annnotaion File: `default-"data/sample.annotations.tsv"` for testing score of ot
   - Remove words containing punctuations.
 - Ranking rule:
   - Top score given by elasticsearch
+  
+  ## Scalability 
+  - First part of our solution is completely scalabe, and the WARC file splits to 100 containers.
