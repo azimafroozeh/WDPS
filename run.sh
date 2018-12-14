@@ -9,11 +9,11 @@ ES_PID=$!
 #sleep 15
 echo "elasticsearch should be running now on node $ES_NODE:$ES_PORT (connected to process $ES_PID)"
 
-SCRIPT=${1:-"cluster_test.py"}
+SCRIPT=${1:-"cluster.py"}
 INFILE=${2:-"hdfs:///user/bbkruit/sample.warc.gz"}
-OUTFILE=${3:-"sampleHY"}
-
-
+OUTFILE=${3:-"sample"}
+echo "Script is: " $SCRIPT
+echo "Input is: " $INFILE
 hadoop fs -rm -r $OUTFILE
 export SPARK_DIST_CLASSPATH=$(hadoop classpath)
 # This assumes there is a python virtual environment in the "venv" directory
