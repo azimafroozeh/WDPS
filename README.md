@@ -3,4 +3,5 @@
 https://bitbucket.org/AzimAfroozeh/vuwebdata/
 
 
-# continue
+# Usage
+Step1:run cluster_run.sh
