@@ -67,3 +67,6 @@ Annotation File: `default-"data/sample.annotations.tsv"` for a testing score of 
   - Remove words containing punctuations.
 - Ranking rule:
   - Top score given by elasticsearch
+  
+  ## Scalability 
+  - First part of our solution is completely scalabe, and the WARC file splits to 100 containers.
