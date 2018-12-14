@@ -8,10 +8,6 @@ You can find the old project in the archived Bitbucket [repository](https://bitb
 
 Working space: `/home/wdps1810/wdps-test`
 
-### Step1: Knowledge Extraction
-
-Task: This performs (1) NLP preprocessing and (2) information extraction. This will return a set of entities present in the sample file, with its respective Named Entity Recognition (NER) tag.
-
 Run:
 
 - Run: `run.sh cluster.py "hdfs:///user/bbkruit/sample.warc.gz"`
@@ -29,21 +25,6 @@ Configuration:
 - Cluster mode;
 - Virtual Environment.
 
-### Step2: Result Evaluation
-
-Task: This takes the results produced in the previous step and performs entity linking in the knowledge base. The returned result is a set of rows with the linking of the entry samples in the knowledge base. Note that the result is processed in `transformer.py`.
-
-Run:
-
-- File: `Query&Evaluate.sh`
-- Parameters: `"result"`
-
-Output:
-
-- File: "result.tsv"
-- Format: `<WARC-File-ID,Label,Freebase-ID>`
-
-Annotation File: `default-"data/sample.annotations.tsv"` for a testing score of other datasets, you can change the annotation file
 
 ## Techniques
 
