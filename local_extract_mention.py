@@ -30,7 +30,9 @@ def html_to_string(record):
         script.extract()
     #print(" ".join(re.split(r'[\n\t]+', soup.get_text())))
     #print("===================================")
+    return soup.get_text()
     article = nlp(" ".join(re.split(r'[\n\t]+', soup.get_text())))
+    #print(article)
     #print(article)
     #print("articcccccccccccccccccccccccccle")
     for x in article.sents:
@@ -45,7 +47,7 @@ def html_to_string(record):
         for k,v in z.items():
             #print(k)
             #print(v)
-            yield ( k,v)
+            return ( k,v)
 if __name__ == '__main__':
     import sys
 
@@ -63,7 +65,13 @@ if __name__ == '__main__':
         # id_=record.header._d["warc-trec-id"]
         # print(id_)
         if record.header._d["warc-type"] == 'response':
+            print(record.header._d["warc-trec-id"])
+            if '27' not in record.header._d["warc-trec-id"]:
+                continue
+
             tuple_k=html_to_string(record)
+            print(tuple_k)
+            break
             print(record.header._d["warc-trec-id"])
             for i in tuple_k:
                 f_out.writelines(str((record.header._d["warc-trec-id"],i[0],i[1]))+'\n')
