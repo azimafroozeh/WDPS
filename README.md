@@ -15,7 +15,7 @@ Task: This will perform (1) NPL preprocessing and (2) information extraction. Th
 Run:
 
 - File: `cluster_run.sh`
-- Parameters `default-"hdfs:///user/bbkruit/sample.warc.gz"`
+- Parameters `INFILE default-"hdfs:///user/bbkruit/sample.warc.gz"` If you want to apply our program to other datasets, please edit this part
 
 Output:
 
