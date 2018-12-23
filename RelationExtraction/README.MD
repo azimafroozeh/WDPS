@@ -3,7 +3,7 @@
 ### Prerequisite: source virtual environment(not tested)
 - source ~/.barshrc
 - source activate entk_env
-Run:
+### Run:
 
 - Run: `Run_relation_extraction.sh`
 
@@ -11,3 +11,4 @@ Output:
 
 - File: `relations_result`
 - Format: `<WARC-File-ID,A,TypeOf B,B>`
+## Techniques
