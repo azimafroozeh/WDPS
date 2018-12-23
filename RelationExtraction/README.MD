@@ -14,5 +14,5 @@
 ## Techniques
 - Lib: Spacy, en_core_web_sm
 - Patterns:
--- Pattern 1: nsubj [*] (attr|dobj):"Lymphoma is one more cancer types that populace get."=> (Lymphoma, one more cancer types)
--- Pattern 2: [*] perp pobj:"was more deserving of a nomination than 95\% of the field."=> (nomination,95\%)
+- Pattern 1: nsubj [\*] (attr|dobj):"Lymphoma is one more cancer types that populace get."=> (Lymphoma, one more cancer types)
+- Pattern 2: [\*] perp pobj:"was more deserving of a nomination than 95\% of the field."=> (nomination,95\%)
