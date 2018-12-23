@@ -1,8 +1,10 @@
 # WDPS - Knowledge Aquisition
 
-This repository contains the Lab Assignment of the 2018-2019 edition of the  Vrije Universiteit Amsterdam, Computer Science Master Degree, Web Data Processing System course.
+This repository contains the Lab Assignment of the 2018-2019 edition of the Vrije Universiteit Amsterdam, Computer Science Master Degree, Web Data Processing System course.
 
 You can find the old project in the archived Bitbucket [repository](https://bitbucket.org/AzimAfroozeh/vuwebdata/). Due to the high storage space required by the environment and configuration files, we decided to create a new repository with a simplified and smaller version of the project.
+
+An overall summary of the project is given below. For a more detailed content, check the project report in the file ```report.pdf```
 
 ## Application Usage
 
