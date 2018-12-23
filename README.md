@@ -83,8 +83,11 @@ Annotation File: `default-"data/sample.annotations.tsv"` for a testing score of 
  - quering the freebase for each mention entity (maximum number : 100)
  - rank them based on freebase score
  - if meet the candidate with the same lexical surface as mention return it, otherwise return the candidate with top score.
+ 
+ 
  ### Untested Pipeline
- - 
+ this is another pipeline that we wanted to test in the extended deadline, due to vu problems it's untested
+ - quering the freebase for each mention entity (maximum number : 100). see [here](Search.py)
   
 ## Scalability 
   - First part of our solution is completely scalabe, and the WARC file splits to 100 containers.
