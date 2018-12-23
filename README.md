@@ -73,7 +73,10 @@ Annotation File: `default-"data/sample.annotations.tsv"` for a testing score of 
  - reading the warc file
  - spliting the warc file by `WARC/1.0` delimiter
  - `rddinput` is the frist rdd of our dataflow
- -  Processing WARC file and making RDD of key-value pairs `<WARC-Record-ID, WARC-TREC-ID>`
+ - Processing WARC file and making RDD of key-value pairs `<WARC-Record-ID, RawText>`
+ - Collecting the rdd partitions on driver node
+ - Parallizing the rdd over 100 node
+ - Extracting visible text from html file, the output is `<WARC-Record-ID, VisibleText>`
   
 ## Scalability 
   - First part of our solution is completely scalabe, and the WARC file splits to 100 containers.
