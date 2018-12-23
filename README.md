@@ -73,6 +73,7 @@ Annotation File: `default-"data/sample.annotations.tsv"` for a testing score of 
  - reading the warc file
  - spliting the warc file by `WARC/1.0` delimiter
  - `rddinput` is the frist rdd of our dataflow
+ -  Processing WARC file and making RDD of key-value pairs `<WARC-Record-ID, WARC-TREC-ID>`
   
 ## Scalability 
   - First part of our solution is completely scalabe, and the WARC file splits to 100 containers.
