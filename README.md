@@ -77,6 +77,8 @@ Annotation File: `default-"data/sample.annotations.tsv"` for a testing score of 
  - Collecting the rdd partitions on driver node
  - Parallizing the rdd over 100 node
  - Extracting visible text from html file, the output is `<WARC-Record-ID, VisibleText>`
+ - Extractin entity and labels, the output is `<WARC-Record-ID, Entity, Label>`
+ - Saving the result on hdfs as text
   
 ## Scalability 
   - First part of our solution is completely scalabe, and the WARC file splits to 100 containers.
