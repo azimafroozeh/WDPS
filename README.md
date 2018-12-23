@@ -68,6 +68,12 @@ Annotation File: `default-"data/sample.annotations.tsv"` for a testing score of 
 - Ranking rule:
   - Top score given by elasticsearch
   
+## Pipeline
+
+ - reading the warc file
+ - spliting the warc file by `WARC/1.0` delimiter
+ - `rddinput` is the frist rdd of our dataflow
+  
 ## Scalability 
   - First part of our solution is completely scalabe, and the WARC file splits to 100 containers.
   
