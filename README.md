@@ -68,7 +68,7 @@ Annotation File: `default-"data/sample.annotations.tsv"` for a testing score of 
 - Ranking rule:
   - Top score given by elasticsearch
   
-## Pipeline
+## Genral Pipeline
 
  - reading the warc file
  - spliting the warc file by `WARC/1.0` delimiter
@@ -79,6 +79,12 @@ Annotation File: `default-"data/sample.annotations.tsv"` for a testing score of 
  - Extracting visible text from html file, the output is `<WARC-Record-ID, VisibleText>`
  - Extractin entity and labels, the output is `<WARC-Record-ID, Entity, Label>`
  - Saving the result on hdfs as text
+ ### Tested pipeline
+ - quering the freebase for each mention entity (maximum number : 100)
+ - rank them based on freebase score
+ - if meet the candidate with the same lexical surface as mention return it, otherwise return the candidate with top score.
+ ### Untested Pipeline
+ - 
   
 ## Scalability 
   - First part of our solution is completely scalabe, and the WARC file splits to 100 containers.
