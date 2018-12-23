@@ -24,8 +24,8 @@ def extract_currency_relations(doc):
             if subject:
                 subject = subject[0]
                 relations.append((subject, entity))
-        elif entity.dep_ == 'pobj' and entity.head.dep_ == 'prep':
-            relations.append((entity.head.head, entity))
+        #elif entity.dep_ == 'pobj' and entity.head.dep_ == 'prep':
+            #relations.append((entity.head.head, entity))
     return relations
 def html_to_string(record):
     url = record.url
@@ -41,6 +41,10 @@ def html_to_string(record):
     soup = BeautifulSoup(html, 'html5lib')
     for script in soup(['head', 'title', '[document]', "script", "style", 'aside']):
         script.extract()
+    # text=soup.get_text()
+    # p = re.compile(r"([ ])(\1+)")
+    # text = p.sub(' ', text)
+    # text = text.replace('\n', '').replace('\t', '')
     # print(" ".join(re.split(r'[\n\t]+', soup.get_text())))
     # print("===================================")
     article = nlp(" ".join(re.split(r'[\n\t]+', soup.get_text())))
@@ -57,12 +61,12 @@ def html_to_string(record):
     #print(article)
     #print(article)
     #print("articcccccccccccccccccccccccccle")
-    for x in soup.get_text().split('.'):
+    for x in article.sents:
         # print(type(x))
         #print(x)
-        x=nlp(x)
+        x=nlp(str(x))
         relations = extract_currency_relations(x)
-        print(relations)
+        #print(relations)
         try:
             relations = extract_currency_relations(x)
             for r1, r2 in relations:
@@ -80,7 +84,7 @@ if __name__ == '__main__':
         print('Usage: python starter-code.py INPUT')
         sys.exit(0)
     f = warc.WARCFile(INPUT)
-    f_out = open(OUTPUT,'a+')
+    f_out = open(OUTPUT,'w')
     for record in f:
     #sNLP = stanfordCoreNLP.StanfordNLP()
         # print(record.header)
